@@ -4,10 +4,14 @@ import { API_PREFIX } from './common/constants'
 import { ValidationPipe } from '@nestjs/common'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
+import { AppConfigService } from './config/config.service'
 
 async function bootstrap() {
-  const PORT = 3000
+  //create nest app
   const app = await NestFactory.create(AppModule)
+
+  // get instance from App. AppConfigService was created before create NestApp, so we can get it from App
+  const configService = app.get(AppConfigService)
 
   // Apply a global prefix to every route, such as /api/v1.
   // This keeps backend API routes versioned and easy to identify.
@@ -29,8 +33,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new LoggingInterceptor())
 
   // Start the HTTP server.
-  await app.listen(PORT ?? 3000)
+  await app.listen(configService.port ?? 3000)
   // Log the port used by the server.
-  console.log(`Application is running on port ${PORT ?? 3000}`)
+  console.log(`Application is running on port ${configService.port ?? 3000}`)
 }
 bootstrap()
