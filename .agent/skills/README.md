@@ -1,0 +1,3 @@
+# Agent Skills & Workflows
+Thư mục chứa các kỹ năng tự động hóa hoặc quy trình phức tạp.
+Ví dụ: `deploy-workflow/`, `database-migration/`...

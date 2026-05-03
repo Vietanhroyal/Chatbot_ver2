@@ -1,0 +1,10 @@
+{
+  "project_name": "facebook_chatbot",
+  "version": "1.0.0",
+  "agent_permissions": [
+    "read_files",
+    "write_files",
+    "run_commands"
+  ],
+  "preferred_model": "flexible"
+}

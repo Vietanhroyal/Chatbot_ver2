@@ -1,0 +1,13 @@
+# ─── Application ────────────────────────────────
+NODE_ENV=development // what it mean? 
+PORT=3000
+
+# ─── OpenAI ─────────────────────────────────────
+OPENAI_API_KEY=sk-your-key-here
+
+# ─── Database (Future Phase) ────────────────────
+# DB_HOST=localhost
+# DB_PORT=5432
+# DB_NAME=chatbot
+# DB_USER=postgres
+# DB_PASSWORD=postgres
