@@ -2,10 +2,23 @@
 //at this interface we delcare a common shape of the response from the server
 //that interface have generic type parameter that means it can
 //accept any type of data T and return it as a response
-export interface ApiResponse<T> {}
+export interface ApiResponse<T> {
+  success: boolean
+  data: T
+  message: string 
+}
+
+export interface ErrorDetail {
+  code: number
+  message: string
+  path: string
+}
 
 //the common shape of the error response form the server when catching an error
-export interface ApiErrorResponse {}
+export interface ApiErrorResponse {
+  success: boolean
+  error: ErrorDetail
+}
 
 //message history type
 export interface Message {}
