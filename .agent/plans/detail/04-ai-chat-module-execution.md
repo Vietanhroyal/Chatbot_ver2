@@ -247,7 +247,7 @@ export class AiChatService {
           code: ERROR_CODES.AI_SERVICE_ERROR,
           message: 'Failed to generate AI response',
         },
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        .INTERNAL_SERVER_ERROR,
       );
     }
   }

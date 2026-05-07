@@ -1,4 +1,3 @@
-
 //
 export const API_PREFIX = 'api/v1'
 
@@ -9,7 +8,9 @@ export const INTENT_NAMES = {}
 export const SKILL_NAMES = {}
 
 //error code
-export const ERROR_CODE = {}
+export const ERROR_CODE = {
+  AI_SERVICE_ERROR: 500,
+}
 
 //input guard
 export const INPUT_GUARD = {

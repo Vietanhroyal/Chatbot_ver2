@@ -55,5 +55,5 @@ export class ChatRequestDto {
   @IsOptional()
   @ValidateNested()
   @Type(() => ChatbotContext)
-  context: ChatRequestDto
+  context: ChatRequestDto // context of chatbot conversation 
 }

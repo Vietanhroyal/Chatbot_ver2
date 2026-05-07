@@ -40,9 +40,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     response.status(status).json({
       success: false,
       error: {
-        code: status.toString(),
-        message:
-          typeof message === 'string' ? message : (message as any).message,
+        code: (exception as any).code || status.toString(),
+        message: Array.isArray(message) ? message[0] : message,
         path: request.url,
       },
     })
