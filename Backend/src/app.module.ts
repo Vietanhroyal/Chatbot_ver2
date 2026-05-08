@@ -4,9 +4,10 @@ import { AppService } from './app.service'
 import { AppConfigModule } from './config/config.module'
 import { HealthModule } from './health/health.module'
 import { AiChatModule } from './ai-chat/ai-chat.module'
+import { AiAgentModule } from './ai-agent/ai-agent.module';
 
 @Module({
-  imports: [AppConfigModule, HealthModule, AiChatModule],
+  imports: [AppConfigModule, HealthModule, AiChatModule, AiAgentModule],
   controllers: [AppController],
   providers: [AppService],
 })

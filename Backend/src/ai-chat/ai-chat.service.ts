@@ -7,6 +7,8 @@ import { AiServiceException } from 'src/common/exceptions/ai.excepton'
 @Injectable()
 export class AiChatService {
   private readonly logger = new Logger(AiChatService.name)
+ 
+ 
 
   async processMessage(request: ChatRequestDto): Promise<ChatResponseDto> {
     try {
