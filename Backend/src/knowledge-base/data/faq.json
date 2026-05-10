@@ -1,0 +1,26 @@
+[
+  {
+    "id": "faq_001",
+    "question": "Trường có mấy cơ sở?",
+    "answer": "Trường hiện có 2 cơ sở: Cơ sở 1 tại Quận 1, Cơ sở 2 tại Thủ Đức.",
+    "category": "general"
+  },
+  {
+    "id": "faq_002",
+    "question": "Hạn chót nộp hồ sơ là khi nào?",
+    "answer": "Hạn chót nộp hồ sơ xét tuyển đợt 1 là ngày 30/06/2026. Đợt 2 là 30/08/2026.",
+    "category": "admission"
+  },
+  {
+    "id": "faq_003",
+    "question": "Trường có ký túc xá không?",
+    "answer": "Có, trường có ký túc xá tại cơ sở Thủ Đức với giá từ 1.500.000đ/tháng.",
+    "category": "general"
+  },
+  {
+    "id": "faq_004",
+    "question": "Làm sao để liên hệ tư vấn tuyển sinh?",
+    "answer": "Hotline tư vấn: 1900-xxxx (8h-17h thứ 2-7). Email: tuyensinh@example.edu.vn",
+    "category": "contact"
+  }
+]

@@ -1,59 +1,74 @@
-//ConversationMessage DTO
-
-import { Type } from 'class-transformer'
 import {
-  IsArray,
-  IsIn,
+  IsString,
   IsNotEmpty,
   IsOptional,
-  IsString,
+  IsIn,
   ValidateNested,
-} from 'class-validator'
+  IsArray,
+  MaxLength,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { INPUT_GUARD } from '../../common/constants';
 
-export class ConversationMessageDto {
+/**
+ * Represents a single message in conversation history.
+ */
+class ConversationMessageDto {
   @IsIn(['user', 'assistant'])
-  @IsNotEmpty() // newsessary ?
-  role: 'user' | 'assistant'
+  role: 'user' | 'assistant';
 
   @IsString()
   @IsNotEmpty()
-  message: string
+  content: string;
 }
 
-//Chatcontext  DTO
-export class ChatbotContext {
+/**
+ * Optional context attached to the chat request.
+ */
+class ChatContextDto {
   @IsOptional()
   @IsString()
-  user_name?: string
+  user_name?: string;
 
-  @IsOptional() // if not present will be undefined -> validate it will be skipped
+  @IsOptional()
   @IsArray()
-  @ValidateNested({ each: true }) // deep validate ensure that each propoties of object in array is matching with conversationMessageDto
-  @Type(() => ConversationMessageDto) //convert Json to ConversationMessageDto instance
-  converstionHistory?: ConversationMessageDto[]
+  @ValidateNested({ each: true })
+  @Type(() => ConversationMessageDto)
+  conversation_history?: ConversationMessageDto[];
+
+  @IsOptional()
+  pending_clarification?: {
+    type: string;
+    original_intent?: string;
+    original_skill?: string;
+    missing_entities?: string[];
+    question_asked?: string;
+  } | null;
 }
 
-//this is class dto for full chatReques come to my server backend
+/**
+ * Input validation for POST /api/v1/ai/chat
+ * Contract defined in api_flow.md § 1.2 and § 1.3
+ */
 export class ChatRequestDto {
   @IsString()
   @IsNotEmpty()
-  session_id: string //session from web or fb or zalo
+  session_id: string;
+
+  @IsOptional()
+  @IsString()
+  user_id?: string;
+
+  @IsIn(['web', 'facebook', 'zalo', 'api'])
+  channel: 'web' | 'facebook' | 'zalo' | 'api';
 
   @IsString()
   @IsNotEmpty()
-  user_id: string
-
-  @IsString()
-  @IsNotEmpty()
-  @IsIn(['facebook', 'zalo', 'web'])
-  channel: 'facebook' | 'zalo' | 'web'
-
-  @IsString()
-  @IsNotEmpty()
-  message: string
+  @MaxLength(INPUT_GUARD.MAX_MESSAGE_LENGTH)
+  message: string;
 
   @IsOptional()
   @ValidateNested()
-  @Type(() => ChatbotContext)
-  context: ChatRequestDto // context of chatbot conversation 
+  @Type(() => ChatContextDto)
+  context?: ChatContextDto;
 }

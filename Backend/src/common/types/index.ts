@@ -21,7 +21,10 @@ export interface ApiErrorResponse {
 }
 
 //message history type
-export interface Message {}
+export interface Message {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
 
 //types for the supported channels connected with my server
 export type Channel = 'web' | 'facebook' | 'zalo' | 'api'
@@ -35,7 +38,7 @@ export type ReasoningLevel = 'shallow' | 'medium' | 'deep'
 //agent response type
 //if final_answer then the agent will return the final answer
 //if ask_clarification then the agent will ask the user for more information
-export type AgentResponseType = 'final_answer,' | 'ask_clarification'
+export type AgentResponseType = 'final_answer' | 'ask_clarification'
 
 //clarification type
 //if intent then the agent will ask the user for more information about the intent
