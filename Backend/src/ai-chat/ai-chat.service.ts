@@ -12,7 +12,7 @@ export class AiChatService {
   constructor(
     private readonly aiAgentService: AiAgentService,
     private readonly loggingService: LoggingService,
-  ) {}
+  ) { }
 
   async processMessage(request: ChatRequestDto): Promise<ChatResponseDto> {
     const startTime = Date.now();

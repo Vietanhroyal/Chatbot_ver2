@@ -150,7 +150,7 @@ export const inputGuardNode = (state: AgentState): Partial<AgentState> => {
   if (msg.length < INPUT_GUARD.MIN_MESSAGE_LENGTH ||
       msg.length > INPUT_GUARD.MAX_MESSAGE_LENGTH) {
     return {
-      is_safe: false,
+      is_safe: false, 
       response_type: 'final_answer',
       final_messages: [{
         type: 'text',

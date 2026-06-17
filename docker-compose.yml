@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  rag-database:
+    image: pgvector/pgvector:pg16
+    container_name: rag-postgres-container
+    ports:
+      - "5432:5432" # Đẩy port 5432 từ container ra port 5432 của máy thật
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: rag_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data # Gắn volume để không bị mất data khi tắt/xóa container
+    restart: always # Tự động chạy lại nếu container bị crash hoặc khi restart máy
+
+volumes:
+  pgdata:
+    driver: local

@@ -1,32 +1,40 @@
 import { ChatOpenAI } from '@langchain/openai';
 import { AgentState } from '../state';
-import { CLARIFICATION_RESOLUTION_PROMPT } from '../../prompts';
+import { CorePromptsService } from '../../core-prompts/core-prompts.service';
+import {
+  FALLBACK_CLARIFICATION_RESOLUTION_PROMPT,
+} from './fallback-prompts';
 
-/**
- * Node 3: Clarification Resolution (Rule + gpt-4o-mini)
- * Evaluates if the user's reply resolves the pending question.
- */
-export const clarificationResolutionNode = async (
-  state: AgentState,
-): Promise<Partial<AgentState>> => {
-  const pending = state.pending_clarification;
-  if (!pending) {
-    return { clarification_resolved: false };
-  }
+export const createClarificationResolutionNode = (
+  corePrompts: CorePromptsService,
+) => {
+  return async (
+    state: AgentState,
+  ): Promise<Partial<AgentState>> => {
+    const pending = state.pending_clarification;
+    if (!pending) {
+      return { clarification_resolved: false };
+    }
 
-  const prompt = CLARIFICATION_RESOLUTION_PROMPT
-    .replace('{user_message}', state.user_message)
-    .replace('{pending_question}', pending.question_asked ?? '')
-    .replace('{pending_type}', pending.type)
-    .replace('{missing_fields}', (pending.missing_entities ?? []).join(', '));
+    const promptTemplate = await corePrompts.getByCodeOrFallback(
+      'clarification_resolution',
+      FALLBACK_CLARIFICATION_RESOLUTION_PROMPT,
+    );
 
-  try {
-    const llm = new ChatOpenAI({ modelName: 'gpt-4o-mini', temperature: 0 });
-    const response = await llm.invoke(prompt);
-    const parsed = JSON.parse(response.content as string);
+    const prompt = promptTemplate
+      .replace('{user_message}', state.user_message)
+      .replace('{pending_question}', pending.question_asked ?? '')
+      .replace('{pending_type}', pending.type)
+      .replace('{missing_fields}', (pending.missing_entities ?? []).join(', '));
 
-    return { clarification_resolved: parsed.resolved === true };
-  } catch {
-    return { clarification_resolved: false };
-  }
+    try {
+      const llm = new ChatOpenAI({ modelName: 'gpt-4o-mini', temperature: 0 });
+      const response = await llm.invoke(prompt);
+      const parsed = JSON.parse(response.content as string);
+
+      return { clarification_resolved: parsed.resolved === true };
+    } catch {
+      return { clarification_resolved: false };
+    }
+  };
 };

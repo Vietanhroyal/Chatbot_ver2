@@ -1,6 +1,6 @@
 # Kết quả Test Kịch bản Nghiệp vụ
 
-*Ngày chạy: 5/10/2026, 6:37:56 PM*
+*Ngày chạy: 5/14/2026, 5:16:49 PM*
 
 ## [TC-01] FAQ đơn giản — Hỏi về cơ sở
 
@@ -15,7 +15,7 @@
 **Bot Responses:**
 > Dạ, mình hiểu em đang quan tâm đến cơ sở của trường.
 > Trường hiện có 2 cơ sở: Cơ sở 1 tại Quận 1 và Cơ sở 2 tại Thủ Đức.
-> Nếu em cần thêm thông tin gì, cứ hỏi anh/chị nhé!
+> Nếu em cần thêm thông tin về từng cơ sở, cứ hỏi nhé!
 
 ---
 
@@ -30,9 +30,9 @@
 - **Need More Info**: `false`
 
 **Bot Responses:**
-> Dạ, mình hiểu rằng bạn đang quan tâm đến học phí ngành Công nghệ thông tin.
+> Dạ, mình hiểu bạn đang quan tâm đến học phí ngành Công nghệ thông tin.
 > Học phí là 15.000.000đ mỗi kỳ và 30.000.000đ mỗi năm. Nếu bạn đóng trọn năm, sẽ được giảm 10%. Trường cũng hỗ trợ vay vốn ngân hàng với lãi suất 0% trong thời gian học.
-> Nếu bạn cần thêm thông tin gì, cứ hỏi mình nhé!
+> Nếu bạn cần thêm thông tin hay có câu hỏi gì khác, cứ hỏi nhé!
 
 ---
 
@@ -47,8 +47,8 @@
 - **Need More Info**: `false`
 
 **Bot Responses:**
-> Dạ, mình hiểu rằng em đang quan tâm đến ngành Khoa học dữ liệu.
-> Ngành này có thời gian đào tạo là 4 năm. Tổ hợp xét tuyển cho ngành này là A00, A01, D07.
+> Dạ, mình hiểu em đang quan tâm đến ngành Khoa học dữ liệu.
+> Ngành này có thời gian đào tạo là 4 năm. Tổ hợp xét tuyển cho ngành này là A00, A01 và D07.
 > Nếu em cần thêm thông tin gì khác, cứ hỏi mình nhé!
 
 ---
@@ -64,9 +64,9 @@
 - **Need More Info**: `false`
 
 **Bot Responses:**
-> Dạ, mình hiểu em đang quan tâm đến chính sách học bổng của Trường Đại học Việt Nhật.
-> Trường có nhiều loại học bổng như học bổng tuyển sinh, học bổng học tập và học bổng khó khăn. Ví dụ, thủ khoa sẽ được miễn 100% học phí năm đầu, hoặc sinh viên có GPA cao cũng có thể nhận học bổng.
-> Nếu em cần thêm thông tin chi tiết hoặc có câu hỏi gì, cứ thoải mái hỏi nhé!
+> Dạ, mình hiểu rằng em đang quan tâm đến chính sách học bổng của trường.
+> Trường Đại học Việt Nhật có nhiều loại học bổng như học bổng tuyển sinh, học bổng học tập và học bổng hỗ trợ khó khăn. Mỗi loại học bổng sẽ có những điều kiện cụ thể khác nhau.
+> Nếu em cần thêm thông tin chi tiết về từng loại học bổng, hãy cho anh/chị biết nhé!
 
 ---
 
@@ -82,7 +82,7 @@
 - **Pending Clarification**: `missing_info`
 
 **Bot Responses:**
-> Bạn có thể cho tôi biết thêm về phương thức xét tuyển mà bạn quan tâm không?
+> Bạn có thể cho tôi biết bạn muốn biết về phương thức xét tuyển nào không? Ví dụ: xét tuyển theo điểm thi, học bạ hay phương thức khác?
 
 ---
 
@@ -177,7 +177,7 @@
 - **Pending Clarification**: `missing_info`
 
 **Bot Responses:**
-> Em có thể cho chị biết thêm về thế mạnh học tập của em (ví dụ: Toán, Tiếng Anh, Logic, Giao tiếp), sở thích hoặc đam mê cá nhân, cũng như mục tiêu nghề nghiệp của em không? Điều này sẽ giúp chị tư vấn ngành học phù hợp hơn cho em.
+> Em có thể cho chị biết thêm về thế mạnh học tập của em (ví dụ: Toán, Tiếng Anh, Giao tiếp), sở thích hoặc đam mê cá nhân, cũng như mục tiêu nghề nghiệp của em không? Điều này sẽ giúp chị tư vấn ngành học phù hợp hơn cho em.
 
 ---
 
@@ -191,7 +191,7 @@
 - **Pending Clarification**: `missing_info`
 
 **Bot Responses:**
-> Em có thể cho mình biết em muốn theo đuổi ngành học cụ thể nào trong lĩnh vực công nghệ không? Và em có mục tiêu nghề nghiệp gì trong tương lai không?
+> Em có thể cho mình biết em muốn theo học ngành nào trong lĩnh vực công nghệ không? Và em có mục tiêu nghề nghiệp cụ thể nào không?
 
 ---
 
@@ -222,9 +222,9 @@
 - **Need More Info**: `false`
 
 **Bot Responses:**
-> Dạ, mình hiểu em đang quan tâm đến ký túc xá.
-> Trường có ký túc xá tại cơ sở Thủ Đức với giá từ 1.500.000đ/tháng.
-> Nếu em cần thêm thông tin gì khác, cứ hỏi nhé!
+> Dạ, mình hiểu nhu cầu của em về chỗ ở.
+> Trường có ký túc xá tại cơ sở Thủ Đức với mức giá từ 1.500.000đ/tháng.
+> Nếu em cần thêm thông tin, cứ hỏi mình nhé!
 
 ---
 
@@ -238,7 +238,7 @@
 - **Pending Clarification**: `missing_info`
 
 **Bot Responses:**
-> Bạn có thể cho mình biết thêm về thế mạnh học tập của bạn (ví dụ: Toán, Tiếng Anh, Logic, Giao tiếp) và sở thích hoặc đam mê cá nhân của bạn không? Điều này sẽ giúp mình tư vấn cho bạn ngành học phù hợp hơn.
+> Em có thể cho chị biết thêm về thế mạnh học tập của em (ví dụ: Toán, Tiếng Anh, Giao tiếp) và sở thích hoặc mục tiêu nghề nghiệp của em không? Điều này sẽ giúp chị tư vấn cho em ngành học phù hợp hơn.
 
 ---
 
@@ -251,9 +251,9 @@
 - **Need More Info**: `false`
 
 **Bot Responses:**
-> Dạ, mình hiểu rằng em đang quan tâm đến học phí ngành Quản trị kinh doanh.
+> Dạ, mình hiểu em đang quan tâm đến học phí ngành Quản trị kinh doanh.
 > Học phí là 13.000.000đ/kỳ và 26.000.000đ/năm. Nếu em đóng trọn năm, sẽ được giảm 10%. Trường cũng hỗ trợ vay vốn ngân hàng với lãi suất 0% trong thời gian học.
-> Nếu em cần thêm thông tin hay có thắc mắc gì, cứ hỏi nhé!
+> Nếu em cần thêm thông tin gì, cứ hỏi anh nhé!
 
 ---
 
@@ -268,9 +268,9 @@
 - **Need More Info**: `false`
 
 **Bot Responses:**
-> Dạ, mình hiểu em đang quan tâm đến thời hạn nộp hồ sơ.
-> Hạn chót nộp hồ sơ xét tuyển đợt 1 là ngày 30/06/2026. Đợt 2 sẽ là 30/08/2026.
-> Nếu cần thêm thông tin gì, em cứ hỏi nhé!
+> Dạ, mình hiểu em đang quan tâm đến thời gian nộp hồ sơ.
+> Hạn chót nộp hồ sơ xét tuyển đợt 1 là ngày 30/06/2026. Còn đợt 2 thì sẽ là 30/08/2026.
+> Nếu em cần thêm thông tin gì khác, cứ cho anh/chị biết nhé!
 
 ---
 

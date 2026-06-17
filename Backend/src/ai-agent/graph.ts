@@ -1,40 +1,42 @@
 import { StateGraph, END, START } from '@langchain/langgraph';
 import { AgentStateAnnotation, AgentState } from './state';
 import { KnowledgeBaseService } from '../knowledge-base/knowledge-base.service';
+import { CorePromptsService } from '../core-prompts/core-prompts.service';
+import { SkillsService } from '../core-prompts/skills.service';
 import { SKILLS } from '../common/constants';
 
-// Import all 14 nodes
 import {
   inputGuardNode,
   conversationResumeNode,
-  clarificationResolutionNode,
+  createClarificationResolutionNode,
   clarificationRetryStrategyNode,
   continuePreviousTaskNode,
-  intentDetectionNode,
+  createIntentDetectionNode,
   intentClarificationStrategyNode,
   skillSelectionNode,
   retrievalPlanningNode,
   createKnowledgeRetrievalNode,
-  adaptiveReasoningNode,
+  createAdaptiveReasoningNode,
   missingInfoStrategyNode,
-  responseStrategyNode,
-  responsePackagingNode,
+  createResponseStrategyNode,
+  createResponsePackagingNode,
 } from './nodes';
 
-/**
- * Builds and compiles the 14-node LangGraph state machine.
- *
- * Architecture reference: langgraph_flow.md § 3 & § 4
- * Reasoning reference: reasoning_flow.md § 3
- *
- * @param kbService - Injected KnowledgeBaseService for RAG
- * @returns Compiled graph ready to invoke
- */
-export function buildAgentGraph(kbService: KnowledgeBaseService) {
-  const knowledgeRetrievalNode = createKnowledgeRetrievalNode(kbService);
+export interface GraphDeps {
+  kbService: KnowledgeBaseService;
+  corePrompts: CorePromptsService;
+  skills: SkillsService;
+}
+
+export function buildAgentGraph(deps: GraphDeps) {
+  const knowledgeRetrievalNode = createKnowledgeRetrievalNode(deps.kbService);
+  const clarificationResolutionNode = createClarificationResolutionNode(deps.corePrompts);
+  const intentDetectionNode = createIntentDetectionNode(deps.corePrompts);
+  const adaptiveReasoningNode = createAdaptiveReasoningNode(deps.corePrompts, deps.skills);
+  const responseStrategyNode = createResponseStrategyNode(deps.corePrompts);
+  const responsePackagingNode = createResponsePackagingNode(deps.corePrompts);
 
   const workflow = new StateGraph(AgentStateAnnotation)
-    // ── Register all 14 nodes ──────────────────────────────────
     .addNode('input_guard', inputGuardNode)
     .addNode('conversation_resume', conversationResumeNode)
     .addNode('clarification_resolution', clarificationResolutionNode)
@@ -50,7 +52,6 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
     .addNode('response_strategy_node', responseStrategyNode)
     .addNode('response_packaging', responsePackagingNode)
 
-    // ── Normal Edges ───────────────────────────────────────────
     .addEdge(START, 'input_guard')
 
     .addConditionalEdges('input_guard', (state: AgentState) => {
@@ -69,7 +70,6 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
     .addEdge('response_strategy_node', 'response_packaging')
     .addEdge('response_packaging', END)
 
-    // ── Conditional Edge 1: Has Pending Clarification? ─────────
     .addConditionalEdges('conversation_resume', (state: AgentState) => {
       return state.pending_clarification ? 'has_pending' : 'no_pending';
     }, {
@@ -77,7 +77,6 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
       no_pending: 'intent_detection',
     })
 
-    // ── Conditional Edge 2+3: Resolved? + Clarification Type? ──
     .addConditionalEdges('clarification_resolution', (state: AgentState) => {
       if (!state.clarification_resolved) {
         return 'not_resolved';
@@ -90,7 +89,6 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
       resolved_missing_info: 'continue_previous_task',
     })
 
-    // ── Conditional Edge 4: Is Intent Known? ───────────────────
     .addConditionalEdges('intent_detection', (state: AgentState) => {
       const confidence = state.intent?.confidence ?? 0;
       const name = state.intent?.name ?? 'unknown';
@@ -100,7 +98,6 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
       unknown: 'intent_clarification_strategy',
     })
 
-    // ── Conditional Edge 5: Is Handoff? ────────────────────────
     .addConditionalEdges('skill_selection', (state: AgentState) => {
       return state.selected_skill === SKILLS.HUMAN_HANDOFF ? 'handoff' : 'continue';
     }, {
@@ -108,7 +105,6 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
       continue: 'retrieval_planning',
     })
 
-    // ── Conditional Edge 6: Need More Info? ────────────────────
     .addConditionalEdges('adaptive_reasoning', (state: AgentState) => {
       return state.need_more_info ? 'need_info' : 'has_info';
     }, {
@@ -116,6 +112,5 @@ export function buildAgentGraph(kbService: KnowledgeBaseService) {
       has_info: 'response_strategy_node',
     });
 
-  // ── Compile ────────────────────────────────────────────────
   return workflow.compile();
 }
