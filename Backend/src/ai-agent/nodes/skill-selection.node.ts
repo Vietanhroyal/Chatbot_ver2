@@ -1,5 +1,5 @@
-import { AgentState } from '../state';
-import { INTENTS, SKILLS } from '../../common/constants';
+import { AgentState } from '../state'
+import { INTENTS, SKILLS } from '../../common/constants'
 
 /**
  * Intent → Skill mapping table.
@@ -15,17 +15,15 @@ const INTENT_TO_SKILL: Record<string, string> = {
   [INTENTS.DEADLINE_INQUIRY]: SKILLS.FAQ,
   [INTENTS.HUMAN_SUPPORT_REQUEST]: SKILLS.HUMAN_HANDOFF,
   [INTENTS.UNKNOWN]: SKILLS.FALLBACK,
-};
+}
 
 /**
  * Node 8: Skill Selection (Rule)
  * Maps the detected intent to a specific consulting skill.
  */
-export const skillSelectionNode = (
-  state: AgentState,
-): Partial<AgentState> => {
-  const intentName = state.intent?.name ?? INTENTS.UNKNOWN;
-  const skill = INTENT_TO_SKILL[intentName] ?? SKILLS.FALLBACK;
+export const skillSelectionNode = (state: AgentState): Partial<AgentState> => {
+  const intentName = state.intent?.name ?? INTENTS.UNKNOWN
+  const skill = INTENT_TO_SKILL[intentName] ?? SKILLS.FALLBACK
 
-  return { selected_skill: skill };
-};
+  return { selected_skill: skill }
+}

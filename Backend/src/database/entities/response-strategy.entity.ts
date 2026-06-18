@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
 
 @Entity('response_strategies')
 export class ResponseStrategyEntity {
@@ -8,8 +14,8 @@ export class ResponseStrategyEntity {
   @Column({ unique: true, length: 64 })
   code: string
 
-  @Column({ name: 'skill_code', length: 64, nullable: true })
-  skillCode: string
+  @Column({ name: 'skill_code', type: 'varchar', length: 64, nullable: true })
+  skillCode: string | null
 
   @Column({ type: 'text', nullable: true })
   trigger: string

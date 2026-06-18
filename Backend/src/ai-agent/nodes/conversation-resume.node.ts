@@ -1,4 +1,4 @@
-import { AgentState } from '../state';
+import { AgentState } from '../state'
 
 /**
  * Node 2: Conversation Resume (Rule)
@@ -10,5 +10,5 @@ export const conversationResumeNode = (
 ): Partial<AgentState> => {
   // No mutation needed. The conditional edge after this node
   // checks state.pending_clarification to decide the next path.
-  return {};
-};
+  return {}
+}

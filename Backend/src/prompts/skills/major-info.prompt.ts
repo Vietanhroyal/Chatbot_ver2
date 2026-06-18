@@ -7,4 +7,4 @@ export const MAJOR_INFO_SKILL_INSTRUCTIONS = `
 - Cấu trúc thông tin rõ ràng với các dấu đầu dòng trong bản dự thảo của bạn.
 - Nếu người dùng hỏi về một ngành không có trong cơ sở kiến thức, hãy trả lời thành thật.
 - Không so sánh các ngành trừ khi người dùng yêu cầu so sánh rõ ràng.
-`.trim();
+`.trim()

@@ -10,4 +10,4 @@ export const HUMAN_HANDOFF_SKILL_INSTRUCTIONS = `
 - Cung cấp thông tin liên hệ (hotline, email) từ cơ sở kiến thức FAQ.
 - Cho họ biết thời gian phản hồi dự kiến nếu có.
 - Đây là kỹ năng kết thúc — sau khi chuyển giao, cuộc hội thoại với bot sẽ dừng lại.
-`.trim();
+`.trim()

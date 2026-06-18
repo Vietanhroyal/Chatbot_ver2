@@ -1,7 +1,8 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { AiChatService } from './ai-chat.service';
-import { ChatRequestDto } from './dto/chat-request.dto';
-import { ChatResponseDto } from './dto/chat-response.dto';
+import { Controller, Post, Body } from '@nestjs/common'
+import { Throttle } from '@nestjs/throttler'
+import { AiChatService } from './ai-chat.service'
+import { ChatRequestDto } from './dto/chat-request.dto'
+import { ChatResponseDto } from './dto/chat-response.dto'
 
 /**
  * Handles POST /api/v1/ai/chat
@@ -14,10 +15,11 @@ import { ChatResponseDto } from './dto/chat-response.dto';
 export class AiChatController {
   constructor(private readonly aiChatService: AiChatService) {}
 
+  @Throttle({ short: { limit: 20, ttl: 60_000 } })
   @Post()
   async handleChat(
     @Body() requestDto: ChatRequestDto,
   ): Promise<ChatResponseDto> {
-    return this.aiChatService.processMessage(requestDto);
+    return this.aiChatService.processMessage(requestDto)
   }
 }

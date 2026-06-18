@@ -1,4 +1,21 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm'
+
+const vectorTransformer = {
+  to: (value: number[] | null): string | null => {
+    if (!value) return null
+    return `[${value.join(',')}]`
+  },
+  from: (value: string | null): number[] | null => {
+    if (!value) return null
+    return value.slice(1, -1).split(',').map(Number)
+  },
+}
 
 @Entity('documents')
 export class DocumentEntity {
@@ -17,7 +34,7 @@ export class DocumentEntity {
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, unknown>
 
-  @Column('float', { array: true, nullable: true })
+  @Column({ type: 'text', nullable: true, transformer: vectorTransformer })
   embedding: number[]
 
   @Column({ default: true })

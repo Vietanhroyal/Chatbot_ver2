@@ -1,16 +1,32 @@
-import { Annotation } from '@langchain/langgraph';
-import { Message, ReasoningLevel, AgentResponseType, ClarificationType } from '../common/types';
+import { Annotation } from '@langchain/langgraph'
+import {
+  Message,
+  ReasoningLevel,
+  AgentResponseType,
+  ClarificationType,
+} from '../common/types'
 
 /**
  * Pending clarification state.
  * Stored when the bot asks a question and waits for user reply.
  */
 export interface PendingClarification {
-  type: ClarificationType;
-  original_intent?: string;
-  original_skill?: string;
-  missing_entities?: string[];
-  question_asked?: string;
+  type: ClarificationType
+  original_intent?: string
+  original_skill?: string
+  missing_entities?: string[]
+  question_asked?: string
+}
+
+/**
+ * User profile extracted from conversation history.
+ * Carries forward information the user has already provided.
+ */
+export interface UserProfile {
+  facts: Record<string, string>
+  preferences: string[]
+  goals: string[]
+  constraints: string[]
 }
 
 /**
@@ -24,6 +40,9 @@ export const AgentStateAnnotation = Annotation.Root({
   session_id: Annotation<string>,
   user_message: Annotation<string>,
   conversation_history: Annotation<Message[]>,
+
+  // 1b. User Profile (extracted from history)
+  user_profile: Annotation<UserProfile>,
 
   // 2. State & Resume Management
   is_safe: Annotation<boolean>,
@@ -47,10 +66,10 @@ export const AgentStateAnnotation = Annotation.Root({
   // 8. Output
   response_type: Annotation<AgentResponseType>,
   final_messages: Annotation<{ type: 'text'; content: string }[] | null>,
-});
+})
 
 /** TypeScript type extracted from the annotation */
-export type AgentState = typeof AgentStateAnnotation.State;
+export type AgentState = typeof AgentStateAnnotation.State
 
 /**
  * Default initial state values.
@@ -60,6 +79,7 @@ export const DEFAULT_AGENT_STATE: AgentState = {
   session_id: '',
   user_message: '',
   conversation_history: [],
+  user_profile: { facts: {}, preferences: [], goals: [], constraints: [] },
   is_safe: true,
   pending_clarification: null,
   clarification_resolved: false,
@@ -73,4 +93,4 @@ export const DEFAULT_AGENT_STATE: AgentState = {
   response_strategy: null,
   response_type: 'final_answer',
   final_messages: null,
-};
+}

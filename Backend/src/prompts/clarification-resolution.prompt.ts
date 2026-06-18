@@ -32,4 +32,4 @@ Thông tin cần thiết: {missing_fields}
   } | null,
   "reasoning": "Giải thích ngắn gọn về quyết định của bạn"
 }
-`.trim();
+`.trim()

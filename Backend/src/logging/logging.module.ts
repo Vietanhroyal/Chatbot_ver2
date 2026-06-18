@@ -1,5 +1,5 @@
-import { Global, Module } from '@nestjs/common';
-import { LoggingService } from './logging.service';
+import { Global, Module } from '@nestjs/common'
+import { LoggingService } from './logging.service'
 
 /**
  * Global logging module.

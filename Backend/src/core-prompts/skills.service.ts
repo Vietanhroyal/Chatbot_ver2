@@ -1,30 +1,20 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { SKILLS } from '../../common/constants';
-
-export interface SkillEntity {
-  id: number;
-  code: string;
-  name: string;
-  systemPrompt: string;
-  enabled: boolean;
-  version: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Injectable, Logger } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { SKILLS } from '../common/constants'
+import { SkillEntity } from '../database/entities/skill.entity'
 
 interface SkillCacheEntry {
-  prompt: string;
-  version: number;
-  ts: number;
+  prompt: string
+  version: number
+  ts: number
 }
 
 @Injectable()
 export class SkillsService {
-  private readonly logger = new Logger(SkillsService.name);
-  private cache = new Map<string, SkillCacheEntry>();
-  private readonly CACHE_TTL = 60_000;
+  private readonly logger = new Logger(SkillsService.name)
+  private cache = new Map<string, SkillCacheEntry>()
+  private readonly CACHE_TTL = 60_000
 
   constructor(
     @InjectRepository(SkillEntity)
@@ -36,31 +26,31 @@ export class SkillsService {
     fallbackMap: Record<string, string>,
   ): Promise<string> {
     try {
-      const cached = this.cache.get(code);
+      const cached = this.cache.get(code)
       if (cached && Date.now() - cached.ts < this.CACHE_TTL) {
-        return cached.prompt;
+        return cached.prompt
       }
 
       const skill = await this.repo.findOne({
-        where: { code, enabled: true },
-      });
+        where: { code },
+      })
 
-      if (skill?.systemPrompt) {
+      if (skill?.enabled && skill?.systemPrompt) {
         this.cache.set(code, {
           prompt: skill.systemPrompt,
           version: skill.version,
           ts: Date.now(),
-        });
-        return skill.systemPrompt;
+        })
+        return skill.systemPrompt
       }
     } catch (err) {
       this.logger.warn(
         `DB read failed for skills[${code}], using fallback`,
         err,
-      );
+      )
     }
 
-    return fallbackMap[code] ?? 'Answer based on the knowledge base.';
+    return fallbackMap[code] ?? 'Answer based on the knowledge base.'
   }
 
   async getFallbackMap(): Promise<Record<string, string>> {
@@ -82,11 +72,14 @@ export class SkillsService {
 - Cấu trúc thông tin rõ ràng với các dấu đầu dòng trong bản dự thảo của bạn.
 - Nếu người dùng hỏi về một ngành không có trong cơ sở kiến thức, hãy trả lời thành thật.
 - Không so sánh các ngành trừ khi người dùng yêu cầu so sánh rõ ràng.`,
-      [SKILLS.CAREER_CONSULTING]: `## Hướng dẫn kỹ năng Tư vấn nghề nghiệp
-- Tập trung vào triển vọng nghề nghiệp và cơ hội việc làm sau khi tốt nghiệp.
-- Đưa ra các gợi ý phát triển kỹ năng và định hướng phù hợp.
-- Khuyến khích người dùng liên hệ tư vấn viên để được hỗ trợ chi tiết hơn.`,
-      'persuasion_skill': `## Hướng dẫn kỹ năng Thuyết phục
+      [SKILLS.CAREER_CONSULTING]: `## Huong dan ky nang Tu van nghe nghiep
+- Dong vai tu van vien dang chan doan ho so, khong phai cong cu tra cuu.
+- Neu nguoi dung dang phan van giua 2 nganh hoac hoi "nen chon nganh nao hon", khong chot voi du lieu mong.
+- Truoc khi khuyen nen chon 1 nganh cu the, can co so thich/huong quan tam va it nhat 1 du lieu quyet dinh: the manh hoc tap/ky nang hoac muc tieu nghe nghiep/moi truong lam viec mong muon.
+- Neu nguoi dung chi noi so thich va tinh cach, vi du "thich cong nghe va kinh doanh, huong ngoai", hay hoi them 1 cau ve the manh hoc tap va kieu cong viec mong muon.
+- Khi da du thong tin, dua ra khuyen nghi uu tien 1 nganh neu tin hieu nghieng ro; neu chua ro, dua ra kich ban "neu... thi...".
+- Khong de xuat qua 2-3 nganh cung mot luc.`,
+      persuasion_skill: `## Hướng dẫn kỹ năng Thuyết phục
 - Sử dụng các kỹ thuật thuyết phục phù hợp với bối cảnh tuyển sinh.
 - Nhấn mạnh lợi ích và giá trị của việc học tại trường.
 - Đưa ra các lý do cụ thể và ví dụ thực tế.
@@ -95,14 +88,14 @@ export class SkillsService {
 - Thông báo cho người dùng rằng họ sẽ được kết nối với tư vấn viên.
 - Cảm ơn người dùng và hứa hỗ trợ nhanh nhất có thể.
 - Không cung cấp thêm thông tin phức tạp — để tư vấn viên xử lý.`,
-    };
+    }
   }
 
   invalidateCache(code?: string): void {
     if (code) {
-      this.cache.delete(code);
+      this.cache.delete(code)
     } else {
-      this.cache.clear();
+      this.cache.clear()
     }
   }
 }

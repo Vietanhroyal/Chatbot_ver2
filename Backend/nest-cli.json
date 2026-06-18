@@ -8,6 +8,10 @@
       {
         "include": "knowledge-base/data/**/*",
         "watchAssets": true
+      },
+      {
+        "include": "../public/**/*",
+        "watchAssets": true
       }
     ]
   }

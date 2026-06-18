@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InteractionLog, AiMetricsLog, RetrievalLog } from './logging.types';
+import { Injectable, Logger } from '@nestjs/common'
+import { InteractionLog, AiMetricsLog, RetrievalLog } from './logging.types'
 
 /**
  * Centralized logging service for AI pipeline observability.
@@ -12,7 +12,7 @@ import { InteractionLog, AiMetricsLog, RetrievalLog } from './logging.types';
  */
 @Injectable()
 export class LoggingService {
-  private readonly logger = new Logger('AILogger');
+  private readonly logger = new Logger('AILogger')
 
   /**
    * Log a complete chat interaction after the agent finishes.
@@ -26,7 +26,7 @@ export class LoggingService {
           timestamp: new Date().toISOString(),
           ...data,
         }),
-      );
+      )
     } catch {
       // Never let logging crash the app
     }
@@ -44,7 +44,7 @@ export class LoggingService {
           timestamp: new Date().toISOString(),
           ...data,
         }),
-      );
+      )
     } catch {
       // Never let logging crash the app
     }
@@ -62,7 +62,7 @@ export class LoggingService {
           timestamp: new Date().toISOString(),
           ...data,
         }),
-      );
+      )
     } catch {
       // Never let logging crash the app
     }
@@ -82,7 +82,7 @@ export class LoggingService {
           step,
           detail,
         }),
-      );
+      )
     } catch {
       // Never let logging crash the app
     }

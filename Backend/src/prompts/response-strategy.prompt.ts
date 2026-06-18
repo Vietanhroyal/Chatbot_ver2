@@ -42,4 +42,4 @@ Nhiệm vụ của bạn là nhận một câu trả lời dự thảo thô và 
   ],
   "quick_replies": ["Lựa chọn 1", "Lựa chọn 2"] | null
 }
-`.trim();
+`.trim()

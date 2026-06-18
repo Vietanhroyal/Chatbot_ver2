@@ -1,4 +1,4 @@
-import { AgentState } from '../state';
+import { AgentState } from '../state'
 
 /**
  * Node 12: Missing Info Strategy (Template/Rule)
@@ -12,8 +12,9 @@ export const missingInfoStrategyNode = (
   // The adaptive_reasoning_node already drafted the question in response_strategy
   // This node wraps it into the pending_clarification state
 
-  const draftedQuestion = state.response_strategy
-    ?? 'Mình cần thêm thông tin để tư vấn chính xác hơn. Em có thể chia sẻ thêm không?';
+  const draftedQuestion =
+    state.response_strategy ??
+    'Mình cần thêm thông tin để tư vấn chính xác hơn. Em có thể chia sẻ thêm không?'
 
   return {
     response_type: 'ask_clarification',
@@ -25,5 +26,5 @@ export const missingInfoStrategyNode = (
       question_asked: draftedQuestion,
     },
     final_messages: [{ type: 'text', content: draftedQuestion }],
-  };
-};
+  }
+}

@@ -3,14 +3,14 @@
  * Consumed by AiChatService after the agent completes.
  */
 export interface InteractionLog {
-  sessionId: string;
-  userMessage: string;
-  intent: string;
-  intentConfidence: number;
-  skill: string;
-  reasoningLevel: string;
-  responseType: string;
-  latencyMs: number;
+  sessionId: string
+  userMessage: string
+  intent: string
+  intentConfidence: number
+  skill: string
+  reasoningLevel: string
+  responseType: string
+  latencyMs: number
 }
 
 /**
@@ -18,14 +18,14 @@ export interface InteractionLog {
  * Used for prompt tuning and cost tracking.
  */
 export interface AiMetricsLog {
-  sessionId: string;
-  nodeId: string;
-  model: string;
-  promptTokens?: number;
-  completionTokens?: number;
-  latencyMs: number;
-  success: boolean;
-  error?: string;
+  sessionId: string
+  nodeId: string
+  model: string
+  promptTokens?: number
+  completionTokens?: number
+  latencyMs: number
+  success: boolean
+  error?: string
 }
 
 /**
@@ -33,10 +33,10 @@ export interface AiMetricsLog {
  * Used to evaluate RAG quality.
  */
 export interface RetrievalLog {
-  sessionId: string;
-  query: string;
-  skill: string;
-  sourcesFound: number;
-  sources: string[];
-  latencyMs: number;
+  sessionId: string
+  query: string
+  skill: string
+  sourcesFound: number
+  sources: string[]
+  latencyMs: number
 }

@@ -12,7 +12,7 @@ export const INTENTS = {
   DEADLINE_INQUIRY: 'deadline_inquiry',
   HUMAN_SUPPORT_REQUEST: 'human_support_request',
   UNKNOWN: 'unknown',
-};
+}
 
 //skill
 export const SKILLS = {
@@ -23,7 +23,7 @@ export const SKILLS = {
   SCHOLARSHIP: 'scholarship_advisory_skill',
   HUMAN_HANDOFF: 'human_handoff_skill',
   FALLBACK: 'fallback_skill',
-};
+}
 
 //error code
 export const ERROR_CODE = {

@@ -10,4 +10,4 @@ export const PERSUASION_SKILL_INSTRUCTIONS = `
 - Cung cấp bằng chứng ngược lại từ cơ sở kiến thức (ví dụ: học bổng, tỷ lệ hoàn vốn đầu tư ROI, kết quả nghề nghiệp).
 - Sử dụng bằng chứng xã hội nếu có (ví dụ: "Nhiều sinh viên trong tình huống tương tự...").
 - Kết thúc bằng một câu hỏi mở để duy trì cuộc hội thoại.
-`.trim();
+`.trim()

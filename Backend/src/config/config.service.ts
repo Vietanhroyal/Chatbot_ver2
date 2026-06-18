@@ -39,7 +39,10 @@ export class AppConfigService {
   }
 
   get embeddingModel(): string {
-    return this.configService.get<string>('EMBEDDING_MODEL', 'text-embedding-3-small')
+    return this.configService.get<string>(
+      'EMBEDDING_MODEL',
+      'text-embedding-3-small',
+    )
   }
 
   get useDbPrompts(): boolean {

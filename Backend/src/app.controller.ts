@@ -10,8 +10,7 @@ export class AppController {
     return this.appService.getHello()
   }
 
-
-  //route test logging 
+  //route test logging
   @Post('test-logging')
   testLogging() {
     return {
@@ -23,8 +22,4 @@ export class AppController {
       },
     }
   }
-
-
-
-
 }

@@ -5,7 +5,7 @@
 export interface ApiResponse<T> {
   success: boolean
   data: T
-  message: string 
+  message: string
 }
 
 export interface ErrorDetail {
@@ -22,8 +22,8 @@ export interface ApiErrorResponse {
 
 //message history type
 export interface Message {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
+  role: 'user' | 'assistant' | 'system'
+  content: string
 }
 
 //types for the supported channels connected with my server

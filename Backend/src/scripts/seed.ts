@@ -6,6 +6,7 @@ import { SkillEntity } from '../database/entities/skill.entity'
 import { CorePromptEntity } from '../database/entities/core-prompt.entity'
 import { ResponseStrategyEntity } from '../database/entities/response-strategy.entity'
 import { DocumentEntity } from '../database/entities/document.entity'
+import { ADAPTIVE_REASONING_PROMPT } from '../prompts/reasoning.prompt'
 
 const AppDataSource = new DataSource({
   type: 'postgres',
@@ -14,7 +15,12 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'myuser',
   password: process.env.DB_PASSWORD || 'mypassword',
   database: process.env.DB_NAME || 'rag_db',
-  entities: [SkillEntity, CorePromptEntity, ResponseStrategyEntity, DocumentEntity],
+  entities: [
+    SkillEntity,
+    CorePromptEntity,
+    ResponseStrategyEntity,
+    DocumentEntity,
+  ],
   synchronize: false,
 })
 
@@ -164,7 +170,8 @@ const RESPONSE_STRATEGIES = [
     code: 'default_clarification',
     skillCode: null,
     trigger: 'ask_clarification',
-    strategyText: 'Đưa ra câu hỏi làm rõ ngắn gọn, tập trung vào một thông tin quan trọng nhất.',
+    strategyText:
+      'Đưa ra câu hỏi làm rõ ngắn gọn, tập trung vào một thông tin quan trọng nhất.',
     priority: 10,
     enabled: true,
   },
@@ -177,6 +184,16 @@ const RESPONSE_STRATEGIES = [
     enabled: true,
   },
 ]
+
+CORE_PROMPTS.reasoning = {
+  content: ADAPTIVE_REASONING_PROMPT,
+  description: 'Adaptive reasoning prompt',
+}
+
+CORE_PROMPTS.adaptive_reasoning = {
+  content: ADAPTIVE_REASONING_PROMPT,
+  description: 'Adaptive reasoning prompt',
+}
 
 function extractPromptFromFile(filePath: string): string {
   const content = fs.readFileSync(filePath, 'utf-8')
@@ -213,10 +230,7 @@ async function seedCorePrompts() {
   console.log('Seeding core prompts...')
 
   for (const [code, { content, description }] of Object.entries(CORE_PROMPTS)) {
-    await repo.upsert(
-      { code, content, description },
-      ['code'],
-    )
+    await repo.upsert({ code, content, description }, ['code'])
     console.log(`Upserted core prompt: ${code}`)
   }
 }
@@ -236,7 +250,13 @@ async function seedDocuments() {
   console.log('Seeding documents...')
 
   const dataDir = path.join(__dirname, '..', 'knowledge-base', 'data')
-  const files = ['faq.json', 'admissions.md', 'tuition.md', 'majors.md', 'scholarships.md']
+  const files = [
+    'faq.json',
+    'admissions.md',
+    'tuition.md',
+    'majors.md',
+    'scholarships.md',
+  ]
 
   for (const file of files) {
     const filePath = path.join(dataDir, file)

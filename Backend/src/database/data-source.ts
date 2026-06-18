@@ -8,6 +8,8 @@ const dataSourceOptions: DataSourceOptions = {
   password: process.env.DB_PASSWORD || 'mypassword',
   database: process.env.DB_NAME || 'rag_db',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/migrations/*{.ts,.js}'],
+  migrationsTableName: 'typeorm_migrations',
   synchronize: false,
 }
 

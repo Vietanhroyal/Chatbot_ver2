@@ -9,4 +9,4 @@ export const FAQ_SKILL_INSTRUCTIONS = `
 - Nếu có nhiều FAQ khớp, hãy cung cấp cái có liên quan nhất.
 - Giữ câu trả lời ngắn (1-2 câu).
 - Không thêm các diễn giải không cần thiết.
-`.trim();
+`.trim()

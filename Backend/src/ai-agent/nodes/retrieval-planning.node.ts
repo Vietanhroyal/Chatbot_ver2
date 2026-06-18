@@ -1,4 +1,4 @@
-import { AgentState } from '../state';
+import { AgentState } from '../state'
 
 /**
  * Node 9: Retrieval Planning (Template)
@@ -8,15 +8,15 @@ import { AgentState } from '../state';
 export const retrievalPlanningNode = (
   state: AgentState,
 ): Partial<AgentState> => {
-  const queries: string[] = [];
+  const queries: string[] = []
 
   // Primary query: the user's message
-  queries.push(state.user_message);
+  queries.push(state.user_message)
 
   // Secondary query: intent-based keyword
   if (state.intent?.name) {
-    queries.push(state.intent.name.replace(/_/g, ' '));
+    queries.push(state.intent.name.replace(/_/g, ' '))
   }
 
-  return { retrieval_plan: queries };
-};
+  return { retrieval_plan: queries }
+}

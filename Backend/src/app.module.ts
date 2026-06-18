@@ -8,6 +8,8 @@ import { AiChatModule } from './ai-chat/ai-chat.module'
 import { AiAgentModule } from './ai-agent/ai-agent.module'
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module'
 import { LoggingModule } from './logging/logging.module'
+import { AppThrottlerModule } from './common/guards/throttler.module'
+import { CommonModule } from './common/common.module'
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { LoggingModule } from './logging/logging.module'
     AiAgentModule,
     KnowledgeBaseModule,
     LoggingModule,
+    AppThrottlerModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

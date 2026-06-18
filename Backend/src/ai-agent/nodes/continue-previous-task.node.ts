@@ -1,4 +1,4 @@
-import { AgentState } from '../state';
+import { AgentState } from '../state'
 
 /**
  * Node 5: Continue Previous Task (Rule)
@@ -8,7 +8,7 @@ import { AgentState } from '../state';
 export const continuePreviousTaskNode = (
   state: AgentState,
 ): Partial<AgentState> => {
-  const pending = state.pending_clarification;
+  const pending = state.pending_clarification
 
   return {
     intent: pending?.original_intent
@@ -17,5 +17,5 @@ export const continuePreviousTaskNode = (
     selected_skill: pending?.original_skill ?? state.selected_skill,
     pending_clarification: null,
     clarification_resolved: false,
-  };
-};
+  }
+}

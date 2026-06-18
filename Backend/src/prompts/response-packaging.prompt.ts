@@ -7,13 +7,10 @@
  */
 
 /** Maximum characters per message bubble */
-export const MAX_MESSAGE_LENGTH = 500;
+export const MAX_MESSAGE_LENGTH = 500
 
 /** Default quick replies when no specific ones are provided */
-export const DEFAULT_QUICK_REPLIES = [
-  'Tìm hiểu thêm',
-  'Liên hệ tư vấn viên',
-];
+export const DEFAULT_QUICK_REPLIES = ['Tìm hiểu thêm', 'Liên hệ tư vấn viên']
 
 /** Channel-specific formatting rules */
 export const CHANNEL_CONFIG = {
@@ -37,4 +34,4 @@ export const CHANNEL_CONFIG = {
     supportsImages: false,
     maxMessages: 10,
   },
-} as const;
+} as const
